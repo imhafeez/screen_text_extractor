@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
@@ -48,8 +49,16 @@ class ScreenTextExtractor {
     }
   }
 
+  Future<void> putTextFromClipboard() async {
+    await _simulateCtrlVKeyPress();
+  }
+
   Future<bool> _simulateCtrlCKeyPress() async {
     return await _channel.invokeMethod('simulateCtrlCKeyPress', {});
+  }
+
+  Future<bool> _simulateCtrlVKeyPress() async {
+    return await _channel.invokeMethod('simulateCtrlVKeyPress', {});
   }
 
   Future<ExtractedData?> _extractFromClipboard() async {

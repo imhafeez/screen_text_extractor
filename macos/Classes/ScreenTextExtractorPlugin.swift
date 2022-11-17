@@ -20,6 +20,9 @@ public class ScreenTextExtractorPlugin: NSObject, FlutterPlugin {
         case "simulateCtrlCKeyPress":
             simulateCtrlCKeyPress(call, result: result)
             break
+        case "simulateCtrlVKeyPress":
+            simulateCtrlVKeyPress(call, result: result)
+            break
         default:
             result(FlutterMethodNotImplemented)
         }
@@ -49,4 +52,11 @@ public class ScreenTextExtractorPlugin: NSObject, FlutterPlugin {
         eventKeyDown!.post(tap: CGEventTapLocation.cghidEventTap);
         result(true)
     }
+
+    public func simulateCtrlVKeyPress(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+            let eventKeyDown = CGEvent(keyboardEventSource: nil, virtualKey: CGKeyCode(UInt32(kVK_ANSI_V)), keyDown: true);
+            eventKeyDown!.flags = CGEventFlags.maskCommand;
+            eventKeyDown!.post(tap: CGEventTapLocation.cghidEventTap);
+            result(true)
+        }
 }
